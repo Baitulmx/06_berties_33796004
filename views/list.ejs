@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Berties Book Shop</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        h1 { text-align: center; }
+        table {
+            width: 60%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📚 Berties Book Shop</h1>
+
+<table>
+    <tr>
+        <th>Book Name</th>
+        <th>Price (£)</th>
+    </tr>
+
+    <% availableBooks.forEach(book => { %>
+        <tr>
+            <td><%= book.name %></td>
+            <td><%= book.price %></td>
+        </tr>
+    <% }) %>
+</table>
+
+</body>
+</html>
