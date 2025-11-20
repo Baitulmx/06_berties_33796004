@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audit Log</title>
+    <style>
+        table { border-collapse: collapse; width: 80%; margin: auto; }
+        th, td { padding: 10px; border-bottom: 1px solid #ccc; }
+        th { background: #eee; }
+        h1 { text-align: center; }
+        .success { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h1>Audit Log</h1>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Success</th>
+        <th>Timestamp</th>
+    </tr>
+
+    <% logs.forEach(log => { %>
+        <tr>
+            <td><%= log.username %></td>
+            <td class="<%= log.success ? 'success' : 'fail' %>">
+                <%= log.success ? 'Success' : 'Failure' %>
+            </td>
+            <td><%= log.timestamp %></td>
+        </tr>
+    <% }) %>
+
+</table>
+</body>
+</html>
