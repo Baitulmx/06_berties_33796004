@@ -34,7 +34,7 @@ router.post('/registered', function (req, res, next) {
                 next(err);
             } else {
 
-                // Task 2 Step 6 output:
+                // Task 2 Step 6
                 let message = 'Hello '+ req.body.first + ' '+ req.body.last 
                               + ', you are now registered! We will send an email to ' + req.body.email + '<br><br>';
 

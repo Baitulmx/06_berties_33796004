@@ -2,7 +2,6 @@
 
 USE berties_books;
 
-# Insert sample books
 INSERT INTO books (name, price)
 VALUES 
 ('Brighton Rock', 20.25),
