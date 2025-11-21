@@ -1,107 +1,32 @@
-# Bertie’s Books  
-Dynamic Web Applications
+## 🌱 dotenv (Brief Implementation)
+
+I used the dotenv module to keep my database credentials secure.  
+Instead of writing the MySQL username, password, and database name directly in `index.js`, I stored them in a `.env` file (which is ignored by GitHub).
+
+Steps implemented:
+- Installed dotenv (`npm install dotenv`)
+- Created a `.env` file with:
+  BB_USER='berties_books_app'
+  BB_PASSWORD='qwertyuiop'
+  BB_DATABASE='berties_books'
+- Loaded dotenv at the top of `index.js`  
+  require('dotenv').config();
+- Updated the MySQL connection to use `process.env` variables.
+
+This keeps credentials private and follows the lab requirements.
 
 ---
 
-## 🔐 Password Hashing
+## 📜 Audit Logging (Brief Implementation)
 
-User passwords are hashed using bcrypt before being stored in the database.
+I implemented an audit logging system to record every login attempt (successful or failed).
 
-Example hashing code:
+Steps implemented:
+- Created an `audit_log` table with fields:
+  username, success (true/false), timestamp
+- Modified the `/users/loggedin` route to insert a log entry after each login attempt:
+  - success = true → correct password  
+  - success = false → wrong password or username not found
+- Created a `/users/audit` page to display all audit log entries.
 
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-const plainPassword = req.body.password;
-
-bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
-    // store hashedPassword in database
-});
-
-Users table:
-
-CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50),
-    first VARCHAR(50),
-    last VARCHAR(50),
-    email VARCHAR(100),
-    hashedPassword VARCHAR(255)
-);
-
----
-
-## 🔐 Login System
-
-Login compares the submitted password with the stored hashed password using bcrypt:
-
-bcrypt.compare(req.body.password, hashedPassword, function(err, result) {
-    if (err) {
-        // error
-    }
-    else if (result === true) {
-        // login success
-    }
-    else {
-        // login fail
-    }
-});
-
----
-
-## 🌱 dotenv
-
-Database credentials were moved out of index.js and secured using dotenv.
-
-.env file (not committed to GitHub):
-
-BB_USER='berties_books_app'
-BB_PASSWORD='qwertyuiop'
-BB_DATABASE='berties_books'
-
-Updated database connection:
-
-require('dotenv').config();
-
-const db = mysql.createPool({
-    host: 'localhost',
-    user: process.env.BB_USER,
-    password: process.env.BB_PASSWORD,
-    database: process.env.BB_DATABASE,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
----
-
-## 📜 Audit Logging
-
-Every login attempt (success or failure) is saved in an audit table.
-
-Audit table:
-
-CREATE TABLE IF NOT EXISTS audit_log (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50),
-    success BOOLEAN,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-Logging each attempt:
-
-INSERT INTO audit_log (username, success) VALUES (?, ?);
-
-Audit log viewer route:
-
-/users/audit
-
----
-
-## ✔ Completed Tasks
-
-- Password hashing with bcrypt  
-- Registration storing hashed passwords  
-- Login using bcrypt.compare()  
-- dotenv-secured DB credentials  
-- Full audit logging system  
-- /users/list page excluding passwords  
+This meets the lab requirement to track user login activity.
