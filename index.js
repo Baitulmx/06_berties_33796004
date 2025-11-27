@@ -5,6 +5,7 @@ var express = require ('express')
 var ejs = require('ejs')
 const path = require('path')
 var mysql = require('mysql2');
+var session = require ('express-session');
 
 // Create the express application object
 const app = express()
