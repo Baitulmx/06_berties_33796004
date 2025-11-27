@@ -11,6 +11,16 @@ var session = require ('express-session');
 const app = express()
 const port = 8000
 
+//Set up the session middleware
+app.use(session({
+    secret: 'somerandomstuff',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000 
+    }
+}));
+
 // Tell Express that we want to use EJS as the templating engine
 app.set('view engine', 'ejs')
 
