@@ -29,4 +29,48 @@ Steps implemented:
   - success = false → wrong password or username not found
 - Created a `/users/audit` page to display all audit log entries.
 
-This meets the lab requirement to track user login activity.
+## Lab 8 – Authorisation, Validation, and Sanitisation
+
+### 1. Authorisation (Lab 8a)
+
+In this lab I implemented session-based authorisation using express-session.  
+When a user successfully logs in, their username is stored inside the session so they can be identified across multiple requests.
+
+A redirectLogin middleware was created to protect restricted pages.  
+It checks whether a valid session exists and, if not, redirects the user to the login page.  
+This middleware was applied to routes such as viewing users, adding books, viewing bargain books, and accessing the audit log.  
+A logout route was also added to destroy the session and clear the session cookie.
+
+---
+
+### 2. Input Validation (Lab 8bc)
+
+I implemented server-side validation with express-validator to ensure all registration inputs meet required rules before being processed.  
+The registration form checks that the email is valid, the username is an appropriate length, and the password is long enough.  
+If validation fails, the registration page is re-rendered with error messages so the user can correct their input.
+
+---
+
+### 3. Input Sanitisation (Lab 8bc)
+
+To protect against XSS and unsafe input, two layers of sanitisation were added:
+
+• express-validator sanitisation removes unwanted characters, extra whitespace, and HTML tags before validation.  
+• express-sanitizer was then used to clean all req.body fields before inserting them into the database or storing them in the session.
+
+All user-provided fields were sanitised, including first name, last name, username, email, password, book names, book prices, search keywords, and login fields.
+
+---
+
+### 4. Handling Sanitisation Issues (Lab 8bc Task 7)
+
+If sanitisation removes unsafe characters and leaves a field empty or invalid, the application safely stops processing the request and informs the user.  
+This prevents partially-sanitised or unsafe data from being stored in the database.
+
+---
+
+### 5. Summary
+
+This lab introduced full security around user login sessions, protected routes, server-side validation, and two-layer sanitisation.  
+All user input is now validated and cleaned before use, improving safety and preventing common attacks such as XSS or malicious form submissions.
+
