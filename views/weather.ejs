@@ -3,23 +3,43 @@
 <head>
     <title>Weather Search</title>
     <style>
-        body { font-family: Arial; background: #f4f4f4; padding: 20px; }
-        h1 { color: #333; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 250px;
+        }
+
+        input[type="submit"] {
+            padding: 8px 15px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
         .weather-box {
             background: white;
             padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-top: 20px;
-        }
-        input[type="text"] {
-            padding: 6px;
-            font-size: 14px;
-        }
-        input[type="submit"] {
-            padding: 6px 10px;
-            font-size: 14px;
-            cursor: pointer;
+            max-width: 400px;
         }
     </style>
 </head>
@@ -27,15 +47,33 @@
 
     <h1>Search Weather</h1>
 
+    <!-- WEATHER SEARCH FORM -->
     <form action="/weather" method="POST">
-        <p>Enter city name:</p>
-        <input type="text" name="city">
+        <label>Enter city name:</label><br>
+        <input type="text" name="city" placeholder="e.g. London">
         <input type="submit" value="Get Weather">
     </form>
 
-    <% if (message) { %>
+    <!-- ERROR MESSAGE -->
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } %>
+
+    <!-- WEATHER RESULTS -->
+    <% if (weather) { %>
         <div class="weather-box">
-            <%- message %>
+            <h2>Weather for <%= weather.name %></h2>
+
+            <p>Temperature: <%= weather.main.temp %>°C</p>
+            <p>Feels like: <%= weather.main.feels_like %>°C</p>
+
+            <p>Min: <%= weather.main.temp_min %>°C | Max: <%= weather.main.temp_max %>°C</p>
+
+            <p>Humidity: <%= weather.main.humidity %>%</p>
+
+            <p>Wind speed: <%= weather.wind.speed %> m/s</p>
+
+            <p>Description: <%= weather.weather[0].description %></p>
         </div>
     <% } %>
 
