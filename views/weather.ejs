@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Search</title>
+    <style>
+        body { font-family: Arial; background: #f4f4f4; padding: 20px; }
+        h1 { color: #333; }
+        .weather-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 6px;
+            font-size: 14px;
+        }
+        input[type="submit"] {
+            padding: 6px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Search Weather</h1>
+
+    <form action="/weather" method="POST">
+        <p>Enter city name:</p>
+        <input type="text" name="city">
+        <input type="submit" value="Get Weather">
+    </form>
+
+    <% if (message) { %>
+        <div class="weather-box">
+            <%- message %>
+        </div>
+    <% } %>
+
+</body>
+</html>

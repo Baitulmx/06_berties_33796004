@@ -74,3 +74,40 @@ This prevents partially-sanitised or unsafe data from being stored in the databa
 This lab introduced full security around user login sessions, protected routes, server-side validation, and two-layer sanitisation.  
 All user input is now validated and cleaned before use, improving safety and preventing common attacks such as XSS or malicious form submissions.
 
+## Weather API (Lab 9a)
+
+In this part of the lab I added a new route (`/weather`) that calls the OpenWeatherMap API.  
+The route sends a request to the API, receives JSON weather data, and displays it to the user.
+
+I also added a form so the user can type a city name.  
+When the form is submitted, the server fetches weather information for that specific city and displays details such as:
+- temperature  
+- feels-like temperature  
+- min/max temperature  
+- humidity  
+- wind speed  
+- general weather description  
+
+The results page was formatted to present the information more clearly.
+
+---
+
+## Books API (Lab 9b)
+
+This lab introduced an `/api/books` route that returns book data in JSON format.  
+The API supports several optional parameters:
+
+### 1. Search term  
+`/api/books?search=word`  
+Returns only the books whose names contain the search term.
+
+### 2. Price range  
+`/api/books?minprice=5&max_price=10`  
+Returns only books between the selected price limits.
+
+### 3. Sort option  
+`/api/books?sort=name`  
+`/api/books?sort=price`  
+Sorts the returned books either alphabetically or by price.
+
+If no parameters are added, the API returns all books.
