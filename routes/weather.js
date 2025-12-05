@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
     let city = req.body.city;
-    let apiKey = 'e0241fc49cd7c61ae1582547573fa73a';
+    let apiKey = process.env.WEATHER_API_KEY;
 
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
